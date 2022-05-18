@@ -1,32 +1,50 @@
 
 <div [hidden]="submitted" style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" required [(ngModel)]="user.user_name" name="name">
-    </div>
-
+      <input formControlName="user_name" id="name" type="text" class="form-control" name="name" >  
+      <div *ngIf="f.user_name.touched && f.user_name.invalid" class="alert alert-danger">  
+          <div *ngIf="f.user_name.errors?.required">Name is required.</div>  
+          <div *ngIf="f.user_name.errors?.pattern">Name should contain only alphabet.</div>  
+      </div>  
+  </div> 
+   
     <div class="form-group">
       <label for="name">Email Id</label>
-      <input type="text" class="form-control" id="email" required [(ngModel)]="user.user_email" name="email">
-    </div>
+      <input formControlName="user_email" id="email" type="text" class="form-control" name="email" >  
+      <div *ngIf="f.user_email.touched && f.user_email.invalid" class="alert alert-danger">  
+          <div *ngIf="f.user_email.errors?.required">Email is required.</div>  
+          <div *ngIf="f.user_email.errors?.email">Please,Enter valid email id.</div>  
+      </div>  
+  </div>
 
     <div class="form-group">
-      <label for="name">Phone number</label>
-      <input type="text" class="form-control" id="phone" required [(ngModel)]="user.user_phone" name="phone">
-    </div>
+      <label for="name">Phone Number</label>
+      <input formControlName="user_phone" id="phone" type="text" class="form-control" name="phone" >  
+      <div *ngIf="f.user_phone.touched && f.user_phone.invalid" class="alert alert-danger">  
+          <div *ngIf="f.user_phone.errors?.required">Mobile Number is required.</div>  
+          <div *ngIf="f.user_phone.errors?.pattern">Please, Enter 10 digit Mobile Number.</div>  
+      </div>  
+  </div>  
+
+      
 
     <div class="form-group">
         <label for="name">Age</label>
-        <input type="text" class="form-control" id="age" required [(ngModel)]="user.user_age" name="age">
-      </div>
-
+        <input formControlName="user_age" id="age" type="text" class="form-control" name="age" >  
+        <div *ngIf="f.user_age.touched && f.user_age.invalid" class="alert alert-danger">  
+            <div *ngIf="f.user_age.errors?.required">Age is required.</div>    
+            <div *ngIf="f.user_age.errors?.pattern">Age in between 1-100 only.</div>  
+        </div>  
+    </div>  
+      
       <div class="form-group">
         <label for="name">Status</label>
-        <input type="text" class="form-control" id="status" required [(ngModel)]="user.user_status" name="status">
+        <input type="text" class="form-control" id="status"  [(ngModel)]="user.user_status" name="status" formControlName="user_status">
       </div>
    
 
-    <button class="btn btn-success">Submit</button>
+    <button class="btn btn-success" [disabled]="form.pristine || form.invalid">Submit</button>
   </form>
 </div>
