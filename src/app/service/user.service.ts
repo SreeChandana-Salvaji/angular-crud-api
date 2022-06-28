@@ -3,8 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import {Observable} from "rxjs/index";
 import { ApiResponse } from '../user/model/api.resonse';
 import { User } from '../user/model/user.model';
+import { FormArray } from '@angular/forms';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
 
   constructor(private http: HttpClient) { }
